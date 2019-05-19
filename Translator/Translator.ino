@@ -1,6 +1,5 @@
 // IMPORTANT NOTE:
-// Files in the SD Card must be in the format: "[NO][NICKNAME].WAV" 
-// and subsequent translated songs in "[NO]_[TRANSLATED_NO][NICKNAME].WAV"
+// Files in the SD Card must be in the format: "[NO]_[TRANSLATED_NO][NICKNAME].WAV"
 // and must be 8 letters in total before ".WAV" due constraints with FAT-32
 
 #include <SD.h>
@@ -51,7 +50,7 @@ void loop() {
    // int choose = 2; // DEBUG manually pick choose
    // Serial.println("choose: " + String(choose)); // DEBUG prints chosen int
 
-   String choose0(choose);
+   String choose0(choose + "_0");
    File wavFile = pickWav(choose0);
    // Checks if the file was opened and is valid
    if(!wavFile) {
