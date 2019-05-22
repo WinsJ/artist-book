@@ -10,9 +10,9 @@
 #define BUTTON_PIN 1 // Port/pin for button
 
 void setup() {
-   // DEBUG output at 115200 baud
-   Serial.begin(115200);
-   // while (!Serial);
+   // DEBUG output at n baud
+   Serial.begin(9600);
+   while (!Serial);
    
    // Setup SD card
    Serial.print("Initializing SD card...");
@@ -39,66 +39,51 @@ void loop() {
    File root = SD.open("/");
    File file = root.openNextFile();
    if (!file) {
-      Serial.println("No files found. Ending Program...");
-      while (true);
+      Serial.println("No files found.");
+      delay(2000);
    }
    
    // Randomize which track to pick
-   int num = countWav() + 1;
+   int num = countWav() / 2 + 1;
    // Serial.println("return: " + String(num)); // DEBUG prints no. of wav files
    int choose = random(1, num); 
    // int choose = 2; // DEBUG manually pick choose
    // Serial.println("choose: " + String(choose)); // DEBUG prints chosen int
 
-   String choose0(choose + "_0");
+   String test0 = "_0";
+   String choose0 = choose + test0;
+   // Serial.println(choose0); // DEBUG prints chosen prefix
    File wavFile = pickWav(choose0);
    Serial.println(wavFile.name()); // DEBUG prints chosen file
-   // Checks if the file was opened and is valid
-   if(wavFile) {
-      // Stops program until button is pressed
-      int buttonState = 0;
-      while(buttonState == 0) {
-         buttonState = digitalRead(BUTTON_PIN);
-         // Serial.println(buttonState); // debug prints button state
-      };
-      
-      // Plays track
-      String wavFileName(wavFile.name());
-      playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName + "...", "  Finished playing " + wavFileName);
-   }
+   // Stops program until button is pressed
+   int buttonState = 0;
+   while(buttonState == 0) {
+      buttonState = digitalRead(BUTTON_PIN);
+      // Serial.println(buttonState); // DEBUG prints button state
+   };
    
-   // ------------------------------------------------------------------------------------------------------------------
-   String choose1(choose + "_1");
-   wavFile = pickWav(choose1);
-   // Checks if the file was opened and is valid
-   if(!wavFile) {
-      // Stops program until button is pressed
-      int buttonState = 0;
-      while(buttonState == 0) {
-         buttonState = digitalRead(BUTTON_PIN);
-         // Serial.println(buttonState); // debug prints button state
-      };
-      // Plays track
-      String wavFileName1(wavFile.name());
-      playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName1 + "...", "  Finished playing " + wavFileName1);
-   }
+   // Plays track
+   String wavFileName(wavFile.name());
+   playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName + "...", "  Finished playing " + wavFileName);
 
-   // --------------------------------------------------------------------------------------------------------------------
-   String choose2(choose + "_2");
-   wavFile = pickWav(choose2);
-   // Checks if the file was opened and is valid
-   if(wavFile) {
-      // Stops program until button is pressed
-      int buttonState = 0;
-      while(buttonState == 0) {
-         buttonState = digitalRead(BUTTON_PIN);
-         // Serial.println(buttonState); // debug prints button state
-      };
-      
-      // Plays track
-      String wavFileName2(wavFile.name());
-      playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName2 + "...", "  Finished playing " + wavFileName2);
-   }
+   // --------------------------------
+   String test1 = "_1";
+   String choose1 = choose + test1;
+   Serial.println(choose1); // DEBUG prints chosen prefix
+   wavFile = pickWav(choose1);
+   Serial.println(wavFile.name()); // DEBUG prints chosen file
+   // Stops program until button is pressed
+   buttonState = 0;
+   while(buttonState == 0) {
+      buttonState = digitalRead(BUTTON_PIN);
+      // Serial.println(buttonState); // DEBUG prints button state
+   };
+   
+   // Plays track
+   String wavFileName1(wavFile.name());
+   playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName1 + "...", "  Finished playing " + wavFileName1);
+   
+   Serial.println("LOOPED"); // DEBUG prints looped
 }
 
 // Counts how many .wav files there are in the SD card
