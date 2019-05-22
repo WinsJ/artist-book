@@ -52,66 +52,53 @@ void loop() {
 
    String choose0(choose + "_0");
    File wavFile = pickWav(choose0);
+   Serial.println(wavFile.name()); // DEBUG prints chosen file
    // Checks if the file was opened and is valid
-   if(!wavFile) {
-      // if the file didn't open, print an error and stop
-      Serial.println("Error opening file");
-      while (true);
+   if(wavFile) {
+      // Stops program until button is pressed
+      int buttonState = 0;
+      while(buttonState == 0) {
+         buttonState = digitalRead(BUTTON_PIN);
+         // Serial.println(buttonState); // debug prints button state
+      };
+      
+      // Plays track
+      String wavFileName(wavFile.name());
+      playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName + "...", "  Finished playing " + wavFileName);
    }
-
-   // Stops program until button is pressed
-   int buttonState = 0;
-   while(buttonState == 0) {
-      buttonState = digitalRead(BUTTON_PIN);
-      // Serial.println(buttonState); // debug prints button state
-   };
    
-   // Plays track
-   String wavFileName(wavFile.name());
-   playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName + "...", "  Finished playing " + wavFileName);
-
-
    // ------------------------------------------------------------------------------------------------------------------
    String choose1(choose + "_1");
    wavFile = pickWav(choose1);
    // Checks if the file was opened and is valid
    if(!wavFile) {
-      // if the file didn't open, print an error and stop
-      Serial.println("Error opening file");
-      while (true);
+      // Stops program until button is pressed
+      int buttonState = 0;
+      while(buttonState == 0) {
+         buttonState = digitalRead(BUTTON_PIN);
+         // Serial.println(buttonState); // debug prints button state
+      };
+      // Plays track
+      String wavFileName1(wavFile.name());
+      playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName1 + "...", "  Finished playing " + wavFileName1);
    }
-
-   // Stops program until button is pressed
-   buttonState = 0;
-   while(buttonState == 0) {
-      buttonState = digitalRead(BUTTON_PIN);
-      // Serial.println(buttonState); // debug prints button state
-   };
-   
-   // Plays track
-   String wavFileName1(wavFile.name());
-   playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName1 + "...", "  Finished playing " + wavFileName1);
 
    // --------------------------------------------------------------------------------------------------------------------
    String choose2(choose + "_2");
    wavFile = pickWav(choose2);
    // Checks if the file was opened and is valid
-   if(!wavFile) {
-      // if the file didn't open, print an error and stop
-      Serial.println("Error opening file");
-      while (true);
+   if(wavFile) {
+      // Stops program until button is pressed
+      int buttonState = 0;
+      while(buttonState == 0) {
+         buttonState = digitalRead(BUTTON_PIN);
+         // Serial.println(buttonState); // debug prints button state
+      };
+      
+      // Plays track
+      String wavFileName2(wavFile.name());
+      playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName2 + "...", "  Finished playing " + wavFileName2);
    }
-   
-   // Stops program until button is pressed
-   buttonState = 0;
-   while(buttonState == 0) {
-      buttonState = digitalRead(BUTTON_PIN);
-      // Serial.println(buttonState); // debug prints button state
-   };
-   
-   // Plays track
-   String wavFileName2(wavFile.name());
-   playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName2 + "...", "  Finished playing " + wavFileName2);   
 }
 
 // Counts how many .wav files there are in the SD card
