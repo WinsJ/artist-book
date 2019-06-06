@@ -52,7 +52,7 @@ void loop() {
   int num = countWav() / 2 + 1;
   // Serial.println("return: " + String(num)); // DEBUG prints no. of wav files
   int choose = random(1, num);
-  choose = 7; // DEBUG manually pick choose
+  choose = 8; // DEBUG manually pick choose
   // Serial.println("choose: " + String(choose)); // DEBUG prints chosen int
 
   String test0 = "_0";
@@ -95,7 +95,7 @@ void loop() {
     String test2 = "_2";
     String choose2 = choose + test2;
     Serial.println(choose2); // DEBUG prints chosen prefix
-    wavFile = pickWav(choose1);
+    wavFile = pickWav(choose2);
     Serial.println(wavFile.name()); // DEBUG prints chosen file
     // Stops program until button is pressed
     buttonState = 0;
