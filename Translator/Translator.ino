@@ -25,7 +25,13 @@ void setup() {
   printDirectory(SD.open("/"), 0);
 
   // Setup random object's seed
-  randomSeed(analogRead(2)); // analog pin must be empty to 'randomise' from noise
+  randomSeed(104); // analog pin must be empty to 'randomise' from noise
+  // analogRead(2)
+  // 25 - Gangnam Style
+  // 26 - Way you are
+  // 27 - Despacito
+  // 30 - This is America
+  // 
 
   // Setup pins for button
   pinMode(BUTTON_PIN, INPUT);
