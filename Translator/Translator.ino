@@ -15,9 +15,9 @@ void setup() {
   delay(1100);
   // Setup SD card
   Serial.print("Initializing SD card...");
-  if (!SD.begin(SD_CARD)) {
+  while (!SD.begin(SD_CARD)) {
     Serial.println("  failed!");
-    while (true);
+    delay(1000);
   }
   Serial.println("  done.");
 
@@ -25,14 +25,14 @@ void setup() {
   printDirectory(SD.open("/"), 0);
 
   // Setup random object's seed
-  randomSeed(2); // analog pin must be empty to 'randomise' from noise
+  randomSeed(analogRead(2)); // analog pin must be empty to 'randomise' from noise
   // analogRead(2) - randomise noise
   // 1 -> 6th
   // 2 -> 3rd
   // 10 -> 5th
   // 26 -> 2nd
-  // 
-    
+  //
+
   // Setup pins for button
   pinMode(BUTTON_PIN, INPUT);
 
@@ -52,7 +52,7 @@ void loop() {
   int num = countWav() / 2 + 1;
   // Serial.println("return: " + String(num)); // DEBUG prints no. of wav files
   int choose = random(1, num);
-  // int choose = 2; // DEBUG manually pick choose
+  choose = 7; // DEBUG manually pick choose
   // Serial.println("choose: " + String(choose)); // DEBUG prints chosen int
 
   String test0 = "_0";
@@ -80,6 +80,7 @@ void loop() {
   Serial.println(wavFile.name()); // DEBUG prints chosen file
   // Stops program until button is pressed
   buttonState = 0;
+  Serial.println("Paused until button pressed."); // DEBUG button state
   while (buttonState == 0) {
     buttonState = digitalRead(BUTTON_PIN);
     // Serial.println(buttonState); // DEBUG prints button state
@@ -88,6 +89,27 @@ void loop() {
   // Plays track
   String wavFileName1(wavFile.name());
   playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName1 + "...", "  Finished playing " + wavFileName1);
+
+  // --------------------------------- for zen zen zense
+  if (choose = 8) {
+    String test2 = "_2";
+    String choose2 = choose + test2;
+    Serial.println(choose2); // DEBUG prints chosen prefix
+    wavFile = pickWav(choose1);
+    Serial.println(wavFile.name()); // DEBUG prints chosen file
+    // Stops program until button is pressed
+    buttonState = 0;
+    Serial.println("Paused until button pressed."); // DEBUG button state
+    while (buttonState == 0) {
+      buttonState = digitalRead(BUTTON_PIN);
+      // Serial.println(buttonState); // DEBUG prints button state
+    };
+
+    // Plays track
+    String wavFileName2(wavFile.name());
+    playFile(wavFile, WAV_SAMPLE_RATE, "Playing " + wavFileName2 + "...", "  Finished playing " + wavFileName2);
+  }
+
 
   Serial.println("LOOPED"); // DEBUG prints looped
 }
