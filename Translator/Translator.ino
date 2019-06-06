@@ -12,7 +12,7 @@
 void setup() {
   // DEBUG output at n baud
   Serial.begin(9600);
-
+  delay(1100);
   // Setup SD card
   Serial.print("Initializing SD card...");
   if (!SD.begin(SD_CARD)) {
@@ -25,14 +25,14 @@ void setup() {
   printDirectory(SD.open("/"), 0);
 
   // Setup random object's seed
-  randomSeed(104); // analog pin must be empty to 'randomise' from noise
-  // analogRead(2)
-  // 25 - Gangnam Style
-  // 26 - Way you are
-  // 27 - Despacito
-  // 30 - This is America
+  randomSeed(2); // analog pin must be empty to 'randomise' from noise
+  // analogRead(2) - randomise noise
+  // 1 -> 6th
+  // 2 -> 3rd
+  // 10 -> 5th
+  // 26 -> 2nd
   // 
-
+    
   // Setup pins for button
   pinMode(BUTTON_PIN, INPUT);
 
@@ -62,7 +62,7 @@ void loop() {
   Serial.println(wavFile.name()); // DEBUG prints chosen file
   // Stops program until button is pressed
   int buttonState = 0;
-  Serial.println("stop");
+  Serial.println("Paused until button pressed."); // DEBUG button state
   while (buttonState == 0) {
     buttonState = digitalRead(BUTTON_PIN);
     // Serial.println(buttonState); // DEBUG prints button state
