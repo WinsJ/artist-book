@@ -12,7 +12,7 @@
 void setup() {
   // DEBUG output at n baud
   Serial.begin(9600);
-  delay(1100);
+  delay(1500);
   // Setup SD card
   Serial.print("Initializing SD card...");
   while (!SD.begin(SD_CARD)) {
@@ -52,7 +52,7 @@ void loop() {
   int num = countWav() / 2 + 1;
   // Serial.println("return: " + String(num)); // DEBUG prints no. of wav files
   int choose = random(1, num);
-  // choose = 8; // DEBUG manually pick choose
+  //choose = 3; // DEBUG manually pick choose
   // Serial.println("choose: " + String(choose)); // DEBUG prints chosen int
 
   // ------------------------------------------------
